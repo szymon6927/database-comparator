@@ -110,5 +110,6 @@ dmypy.json
 # Private
 venv/
 .idea/
+config.env
 
 # End of https://www.gitignore.io/api/python
