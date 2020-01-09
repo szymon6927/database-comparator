@@ -14,3 +14,12 @@ def execute_sql(sql: str, many=True):
         return records
     except Error as e:
         print(f'Failed to get record from MySQL table - {e}')
+
+
+def execute_insert_sql(sql: str):
+    try:
+        cursor = db_session.cursor()
+        cursor.execute(sql)
+        db_session.commit()
+    except Error as e:
+        print(f'Failed to insert record into table - {e}')
