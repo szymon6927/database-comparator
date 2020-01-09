@@ -1,8 +1,8 @@
 from faker import Faker
 
-from drivers.mysql.impls.mysql_repositories import CustomerMySQLRepository
 from src.core.common import uuid4
 from src.core.entities.customer_entitiy import Customer
+from src.drivers.mysql.impls.mysql_repositories import CustomerMySQLRepository
 
 
 class MySQLDriver:

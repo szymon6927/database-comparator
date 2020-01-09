@@ -1,6 +1,6 @@
 from mysql.connector import Error
 
-from drivers.mysql import get_connection
+from src.drivers.mysql.db import get_connection
 
 db_session = get_connection()
 
