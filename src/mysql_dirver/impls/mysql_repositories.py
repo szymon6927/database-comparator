@@ -1,52 +1,76 @@
 from src.core.entities.customer_entitiy import Customer
+from src.core.entities.event_entity import Event
+from src.core.entities.order_entitiy import Order
+from src.core.exceptions import NotExists
 from src.core.repositories import CustomerRepository
 from src.core.repositories import EventRepository
 from src.core.repositories import OrderRepository
+from src.mysql_dirver.impls.cqrs.commands import create_customer
+from src.mysql_dirver.impls.cqrs.commands import create_event
+from src.mysql_dirver.impls.cqrs.commands import create_order
 from src.mysql_dirver.impls.cqrs.queries import get_all_customers
+from src.mysql_dirver.impls.cqrs.queries import get_all_events
+from src.mysql_dirver.impls.cqrs.queries import get_all_orders
+from src.mysql_dirver.impls.cqrs.queries import get_customer_by_id
+from src.mysql_dirver.impls.cqrs.queries import get_event_by_id
+from src.mysql_dirver.impls.cqrs.queries import get_order_by_id
 
 
 class CustomerMySQLRepository(CustomerRepository):
     def get_all(self):
         customers = get_all_customers()
-
-        customer_entities = []
-        for customer in customers:
-            customer_entity = Customer(
-                id=customer.get('id'),
-                name=customer.get('name'),
-                age=customer.get('age'),
-                company_name=customer.get('company_name'),
-                created_at=customer.get('company_name'),
-            )
-
-            customer_entities.append(customer_entity)
+        customer_entities = [Customer(**customer) for customer in customers]
 
         return customer_entities
 
     def get_by_id(self, customer_id):
-        pass
+        customer = get_customer_by_id(customer_id)
 
-    def add(self, customer):
-        pass
+        if not customer:
+            raise NotExists(f'Customer with {customer_id} id does not exist!')
+
+        customer_entity = Customer(**customer)
+        return customer_entity
+
+    def add(self, customer: Customer):
+        create_customer(customer.id, customer.name, customer.age, customer.company_name)
 
 
 class EventMySQLRepository(EventRepository):
     def get_all(self):
-        pass
+        events = get_all_events()
+        event_entities = [Event(**event) for event in events]
+
+        return event_entities
 
     def get_by_id(self, event_id):
-        pass
+        event = get_event_by_id(event_id)
 
-    def add(self, event):
-        pass
+        if not event:
+            raise NotExists(f'Event with {event_id} id does not exist!')
+
+        event_entity = Event(**event)
+        return event_entity
+
+    def add(self, event: Event):
+        create_event(event.id, event.name, event.city, event.date)
 
 
 class OrderMySQLRepository(OrderRepository):
     def get_all(self):
-        pass
+        orders = get_all_orders()
+        order_entities = [Order(**order) for order in orders]
+
+        return order_entities
 
     def get_by_id(self, order_id):
-        pass
+        order = get_order_by_id(order_id)
 
-    def add(self, order):
-        pass
+        if not order:
+            raise NotExists(f'Order with {order_id} id does not exist!')
+
+        order_entity = Order(**order)
+        return order_entity
+
+    def add(self, order: Order):
+        create_order(order.id, order.amount)
