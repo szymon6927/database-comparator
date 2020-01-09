@@ -1,4 +1,4 @@
-from src.mysql_dirver.impls.cqrs.common import execute_sql
+from drivers.mysql.impls.cqrs.common import execute_sql
 
 
 def get_all_customers():

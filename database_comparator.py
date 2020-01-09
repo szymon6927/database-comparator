@@ -1,4 +1,4 @@
-from src.mysql_dirver.driver import MySQLDriver
+from drivers.mysql.driver import MySQLDriver
 
 
 def main():

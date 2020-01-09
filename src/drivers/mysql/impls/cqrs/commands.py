@@ -1,4 +1,4 @@
-from src.mysql_dirver.impls.cqrs.common import execute_insert_sql
+from drivers.mysql.impls.cqrs.common import execute_insert_sql
 
 
 def create_customer(uuid, name, age, company_name):

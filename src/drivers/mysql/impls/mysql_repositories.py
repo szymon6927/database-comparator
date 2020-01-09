@@ -1,3 +1,12 @@
+from drivers.mysql.impls.cqrs.commands import create_customer
+from drivers.mysql.impls.cqrs.commands import create_event
+from drivers.mysql.impls.cqrs.commands import create_order
+from drivers.mysql.impls.cqrs.queries import get_all_customers
+from drivers.mysql.impls.cqrs.queries import get_all_events
+from drivers.mysql.impls.cqrs.queries import get_all_orders
+from drivers.mysql.impls.cqrs.queries import get_customer_by_id
+from drivers.mysql.impls.cqrs.queries import get_event_by_id
+from drivers.mysql.impls.cqrs.queries import get_order_by_id
 from src.core.entities.customer_entitiy import Customer
 from src.core.entities.event_entity import Event
 from src.core.entities.order_entitiy import Order
@@ -5,15 +14,6 @@ from src.core.exceptions import NotExists
 from src.core.repositories import CustomerRepository
 from src.core.repositories import EventRepository
 from src.core.repositories import OrderRepository
-from src.mysql_dirver.impls.cqrs.commands import create_customer
-from src.mysql_dirver.impls.cqrs.commands import create_event
-from src.mysql_dirver.impls.cqrs.commands import create_order
-from src.mysql_dirver.impls.cqrs.queries import get_all_customers
-from src.mysql_dirver.impls.cqrs.queries import get_all_events
-from src.mysql_dirver.impls.cqrs.queries import get_all_orders
-from src.mysql_dirver.impls.cqrs.queries import get_customer_by_id
-from src.mysql_dirver.impls.cqrs.queries import get_event_by_id
-from src.mysql_dirver.impls.cqrs.queries import get_order_by_id
 
 
 class CustomerMySQLRepository(CustomerRepository):
