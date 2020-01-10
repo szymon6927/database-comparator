@@ -7,4 +7,7 @@ format:
 	black app --skip-string-normalization
 	isort --apply
 
+run-tests:
+	pytest -v -s
+
 .PHONY: format update-deps
