@@ -1,5 +1,5 @@
 CREATE TABLE customers (
-    id BINARY(16) PRIMARY KEY,
+    id VARCHAR(36) PRIMARY KEY,
     name VARCHAR(255),
     age INT,
     company_name VARCHAR(255),
@@ -7,8 +7,8 @@ CREATE TABLE customers (
 );
 
 
-CREATE TABLE event (
-    id BINARY(16) PRIMARY KEY,
+CREATE TABLE events (
+    id VARCHAR(36) PRIMARY KEY,
     name VARCHAR(255),
     city varchar(150),
     date TIMESTAMP,
@@ -16,7 +16,7 @@ CREATE TABLE event (
 );
 
 CREATE TABLE orders (
-  id BINARY(16) PRIMARY KEY,
+  id VARCHAR(36) PRIMARY KEY,
   amount FLOAT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE now()
