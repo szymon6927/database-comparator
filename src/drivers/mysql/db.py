@@ -8,12 +8,12 @@ from src.core.exceptions import MissingEnvVariableError
 
 def get_connection():
     host = os.environ.get('MYSQL_HOST', 'localhost')
-    port = os.environ.get('MYSQL_PORT', 4306)
+    port = os.environ.get('MYSQL_PORT')
     database = os.environ.get('MYSQL_DATABASE')
     user = os.environ.get('MYSQL_USER')
     password = os.environ.get('MYSQL_PASSWORD')
 
-    if not all([host, database, user, password]):
+    if not all([host, port, database, user, password]):
         raise MissingEnvVariableError(
             'One of these env variables not set ' '[MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD]'
         )
