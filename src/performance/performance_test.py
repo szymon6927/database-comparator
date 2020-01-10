@@ -21,6 +21,7 @@ class BasePerformanceTest(abc.ABC):
         event_repository: EventRepository,
         order_repository: OrderRepository,
     ):
+        self.operations_number = operations_number
         self.customers_uuid_list = [uuid for uuid in generate_uuid4(operations_number)]
         self.events_uuid_list = [uuid for uuid in generate_uuid4(operations_number)]
         self.orders_uuid_list = [uuid for uuid in generate_uuid4(operations_number)]
@@ -45,7 +46,7 @@ class BasePerformanceTest(abc.ABC):
 
         end = time.time()
 
-        return end - start
+        return round(end - start, 3)
 
     def _get_customers_by_id(self) -> float:
         start = time.time()
@@ -55,7 +56,7 @@ class BasePerformanceTest(abc.ABC):
 
         end = time.time()
 
-        return end - start
+        return round(end - start, 3)
 
     def _get_all_customers(self) -> float:
         start = time.time()
@@ -64,7 +65,7 @@ class BasePerformanceTest(abc.ABC):
 
         end = time.time()
 
-        return end - start
+        return round(end - start, 3)
 
     def _create_events(self) -> float:
         start = time.time()
@@ -82,7 +83,7 @@ class BasePerformanceTest(abc.ABC):
 
         end = time.time()
 
-        return end - start
+        return round(end - start, 3)
 
     def _get_events_by_id(self) -> float:
         start = time.time()
@@ -92,7 +93,7 @@ class BasePerformanceTest(abc.ABC):
 
         end = time.time()
 
-        return end - start
+        return round(end - start, 3)
 
     def _get_all_events(self) -> float:
         start = time.time()
@@ -101,7 +102,7 @@ class BasePerformanceTest(abc.ABC):
 
         end = time.time()
 
-        return end - start
+        return round(end - start, 3)
 
     def _create_orders(self) -> float:
         start = time.time()
@@ -118,7 +119,7 @@ class BasePerformanceTest(abc.ABC):
 
         end = time.time()
 
-        return end - start
+        return round(end - start, 3)
 
     def _get_orders_by_id(self) -> float:
         start = time.time()
@@ -128,7 +129,7 @@ class BasePerformanceTest(abc.ABC):
 
         end = time.time()
 
-        return end - start
+        return round(end - start, 3)
 
     def _get_all_orders(self) -> float:
         start = time.time()
@@ -137,7 +138,7 @@ class BasePerformanceTest(abc.ABC):
 
         end = time.time()
 
-        return end - start
+        return round(end - start, 3)
 
     def test_customers_table(self) -> TablePerformance:
         return TablePerformance(
