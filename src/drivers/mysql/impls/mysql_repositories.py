@@ -33,7 +33,7 @@ class CustomerMySQLRepository(CustomerRepository):
         return customer_entity
 
     def add(self, customer: Customer):
-        create_customer(customer.id, customer.name, customer.age, customer.company_name)
+        create_customer(customer.id, customer.name, customer.age, customer.company_name, customer.created_at)
 
 
 class EventMySQLRepository(EventRepository):
