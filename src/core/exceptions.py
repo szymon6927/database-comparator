@@ -8,3 +8,7 @@ class NotExists(Exception):
     """raise when object not exist"""
 
     pass
+
+
+class IllegalArgumentError(Exception):
+    pass
