@@ -2,8 +2,9 @@
 version: "3.4"
 volumes:
   mysql_database_volume:
-  postgres_database_volume:
   mysql_test_database_volume:
+  postgres_database_volume:
+  postgres_test_database_volume:
 
 # x-extension fields
 x-env_file: &env_file
@@ -37,3 +38,12 @@ services:
       image: postgres:10
       ports:
         - 5432:5432
+
+  postgres_test_database:
+    <<: *env_file
+    container_name: postgres_test_database
+    volumes:
+      - postgres_test_database_volume:/var/lib/postgresql/data/
+    image: postgres:10
+    ports:
+      - 6432:5432
