@@ -2,10 +2,10 @@ from mysql.connector import Error
 
 from src.drivers.mysql.db import get_connection
 
-db_session = get_connection()
-
 
 def execute_sql(sql: str, many=True):
+    db_session = get_connection()
+
     try:
         cursor = db_session.cursor(dictionary=True)
         cursor.execute(sql)
@@ -17,6 +17,8 @@ def execute_sql(sql: str, many=True):
 
 
 def execute_insert_sql(sql: str):
+    db_session = get_connection()
+
     try:
         cursor = db_session.cursor()
         cursor.execute(sql)

@@ -1,8 +1,11 @@
 from src.drivers.mysql.impls.cqrs.common import execute_insert_sql
 
 
-def create_customer(uuid, name, age, company_name):
-    sql = f'insert into customers (id, name, age, company_name) values ("{uuid}", "{name}", {age}, "{company_name}")'
+def create_customer(uuid, name, age, company_name, created_at):
+    sql = (
+        f'insert into customers (id, name, age, company_name, created_at) '
+        f'values ("{uuid}", "{name}", {age}, "{company_name}", "{created_at}")'
+    )
     execute_insert_sql(sql)
 
 
