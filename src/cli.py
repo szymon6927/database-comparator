@@ -1,5 +1,5 @@
-SUPPORTED_DATABASES_CLI_ARGS = ['mysql', 'postgresql']
+from src.core.enums import DBEnum
 
 
 def is_valid_database_cli_arg(arg: str):
-    return arg in SUPPORTED_DATABASES_CLI_ARGS
+    return arg in DBEnum.list()
