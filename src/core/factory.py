@@ -1,9 +1,10 @@
 import abc
 
-from src.cli import SUPPORTED_DATABASES_CLI_ARGS
+from src.core.enums import DBEnum
 from src.core.exceptions import IllegalArgumentError
 from src.performance.mysql.mysql_performance_test import MySQLPerformanceTest
 from src.performance.performance_test import BasePerformanceTest
+from src.performance.postgres.postgresql_performance_test import PostgreSQLPerformanceTest
 
 
 class DatabaseTestFactory(abc.ABC):
@@ -14,9 +15,12 @@ class DatabaseTestFactory(abc.ABC):
 
 class MultipleDatabaseTypeFactory(DatabaseTestFactory):
     def create_database_test(self, database_type: str, operations_number: int) -> BasePerformanceTest:
-        if database_type == 'mysql':
+        if database_type == DBEnum.MYSQL.value:
             return MySQLPerformanceTest(operations_number)
 
+        if database_type == DBEnum.POSTGRESQL.value:
+            return PostgreSQLPerformanceTest(operations_number)
+
         raise IllegalArgumentError(
-            f'Data required to create performance test needs to have one of this {SUPPORTED_DATABASES_CLI_ARGS}'
+            f'Data required to create performance test needs to have one of this {DBEnum.list()}'
         )
