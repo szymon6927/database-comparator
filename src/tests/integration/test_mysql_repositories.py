@@ -1,49 +1,16 @@
 from unittest.mock import patch
 
 import pytest
-from faker import Faker
 
-from src.core.common import uuid4
-from src.core.entities.customer_entitiy import Customer
 from src.core.entities.event_entity import Event
 from src.core.entities.order_entitiy import Order
 from src.core.exceptions import NotExists
 from src.drivers.mysql.impls.mysql_repositories import CustomerMySQLRepository
 from src.drivers.mysql.impls.mysql_repositories import EventMySQLRepository
 from src.drivers.mysql.impls.mysql_repositories import OrderMySQLRepository
-
-faker = Faker()
-
-
-def _create_customer_entity() -> Customer:
-    uuid = uuid4()
-    customer = Customer(
-        id=uuid,
-        name=faker.name(),
-        age=faker.random_int(25, 70),
-        company_name='test',
-        created_at=faker.date_time_this_month(),
-    )
-
-    return customer
-
-
-def _create_event_entity() -> Event:
-    uuid = uuid4()
-    event = Event(
-        id=uuid, name='test event', city=faker.word(), date=faker.date_this_month(), created_at=faker.date_this_year()
-    )
-
-    return event
-
-
-def _create_order_entity() -> Order:
-    uuid = uuid4()
-    order = Order(
-        id=uuid, amount=float(faker.random_int()), updated_at=faker.date_this_month(), created_at=faker.date_this_year()
-    )
-
-    return order
+from src.tests.integration.utils import _create_customer_entity
+from src.tests.integration.utils import _create_event_entity
+from src.tests.integration.utils import _create_order_entity
 
 
 @patch('src.drivers.mysql.impls.mysql_repositories.create_customer')
