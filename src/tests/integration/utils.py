@@ -24,7 +24,11 @@ def _create_customer_entity() -> Customer:
 def _create_event_entity() -> Event:
     uuid = uuid4()
     event = Event(
-        id=uuid, name='test event', city=faker.word(), date=faker.date_this_month(), created_at=faker.date_this_year()
+        id=uuid,
+        name='test event',
+        city=faker.word(),
+        date=faker.date_time_this_month(),
+        created_at=faker.date_time_this_year(),
     )
 
     return event
@@ -33,7 +37,10 @@ def _create_event_entity() -> Event:
 def _create_order_entity() -> Order:
     uuid = uuid4()
     order = Order(
-        id=uuid, amount=float(faker.random_int()), updated_at=faker.date_this_month(), created_at=faker.date_this_year()
+        id=uuid,
+        amount=float(faker.random_int()),
+        updated_at=faker.date_time_this_month(),
+        created_at=faker.date_time_this_year(),
     )
 
     return order

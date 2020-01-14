@@ -8,12 +8,15 @@ def execute_mongo(collection_name: str, params: dict, many=True):
     collection = db_session[collection_name]
 
     try:
+        records = list(collection.find(params)) if many else collection.find_one(params)
+
+        if not records:
+            return None
+
         if many:
-            records = list(collection.find(params))
             for record in records:
                 del record['_id']
         else:
-            records = collection.find_one(params)
             del records['_id']
 
         return records
