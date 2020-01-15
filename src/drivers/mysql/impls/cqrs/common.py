@@ -16,7 +16,7 @@ def execute_sql(sql: str, many=True):
         print(f'Failed to get record from MySQL table - {e}')
 
 
-def execute_insert_sql(sql: str):
+def execute_insert_or_delete_sql(sql: str):
     db_session = get_connection()
 
     try:
