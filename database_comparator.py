@@ -2,8 +2,8 @@ import sys
 
 import click
 
-from src.cli import SUPPORTED_DATABASES_CLI_ARGS
 from src.cli import is_valid_database_cli_arg
+from src.core.enums import DBEnum
 from src.core.factory import MultipleDatabaseTypeFactory
 
 
@@ -22,7 +22,7 @@ def main(database, operations_number):
     print('Welcome in Database Comparator (Netguru RnD project) ✨')
 
     if not is_valid_database_cli_arg(database):
-        sys.exit(f'ERROR! database argument is not valid - possible choices {SUPPORTED_DATABASES_CLI_ARGS}')
+        sys.exit(f'ERROR! database argument is not valid - possible choices {DBEnum.list()}')
 
     database_test_factory = MultipleDatabaseTypeFactory()
     database_test = database_test_factory.create_database_test(database, operations_number)

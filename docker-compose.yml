@@ -5,6 +5,8 @@ volumes:
   mysql_test_database_volume:
   postgres_database_volume:
   postgres_test_database_volume:
+  mongo_database_volume:
+  mongo_test_database_volume:
 
 # x-extension fields
 x-env_file: &env_file
@@ -47,3 +49,21 @@ services:
     image: postgres:10
     ports:
       - 6432:5432
+
+  mongo_database:
+    <<: *env_file
+    container_name: mongo_database
+    volumes:
+      - mongo_database_volume:/data/db
+    image: mongo
+    ports:
+      - 7017:27017
+
+  mongo_test_database:
+    <<: *env_file
+    container_name: mongo_test_database
+    volumes:
+      - mongo_test_database_volume:/data/db
+    image: mongo
+    ports:
+      - 8017:27017

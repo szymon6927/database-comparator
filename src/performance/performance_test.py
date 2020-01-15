@@ -75,8 +75,8 @@ class BasePerformanceTest(abc.ABC):
                 id=uuid,
                 name=' '.join(self.faker.words(4)),
                 city=self.faker.word(),
-                date=self.faker.date_this_month(),
-                created_at=self.faker.date_this_year(),
+                date=self.faker.date_time_this_month(),
+                created_at=self.faker.date_time_this_month(),
             )
 
             self.event_repository.add(event)
@@ -111,8 +111,8 @@ class BasePerformanceTest(abc.ABC):
             order = Order(
                 id=uuid,
                 amount=float(self.faker.random_int()),
-                updated_at=self.faker.date_this_month(),
-                created_at=self.faker.date_this_year(),
+                updated_at=self.faker.date_time_this_month(),
+                created_at=self.faker.date_time_this_year(),
             )
 
             self.order_repository.add(order)
