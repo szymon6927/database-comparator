@@ -10,7 +10,8 @@ from src.core.factory import MultipleDatabaseTypeFactory
 @click.command()
 @click.option('--database', '-db', help='database type which you want to test')
 @click.option('--operations-number', '-opn', default=10, help='number of operations performed on the database')
-def main(database, operations_number):
+@click.option('--draw', help='use this flag if you want to draw a chart with the results', is_flag=True)
+def main(database, operations_number, draw):
     """
     Database Comparator - Netguru RnD project
     The goal of the project is to make a database comparison.
@@ -26,7 +27,7 @@ def main(database, operations_number):
 
     database_test_factory = MultipleDatabaseTypeFactory()
     database_test = database_test_factory.create_database_test(database, operations_number)
-    database_test.present_results()
+    database_test.present_results(draw)
 
 
 if __name__ == '__main__':

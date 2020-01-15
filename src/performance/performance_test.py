@@ -1,6 +1,8 @@
 import abc
 import time
 
+import matplotlib.pyplot as plt
+import numpy as np
 from faker import Faker
 
 from src.core.common import generate_uuid4
@@ -164,6 +166,45 @@ class BasePerformanceTest(abc.ABC):
             get_all_time=self._get_all_orders(),
         )
 
+    def draw_bar_chart(
+        self,
+        database_name: str,
+        customers_table_results: TablePerformance,
+        events_table_results: TablePerformance,
+        orders_table_results: TablePerformance,
+    ):
+        bar_number = 3
+
+        insert_time = (
+            customers_table_results.insert_time,
+            events_table_results.insert_time,
+            orders_table_results.insert_time,
+        )
+        get_by_id_time = (
+            customers_table_results.get_by_id_time,
+            events_table_results.get_by_id_time,
+            orders_table_results.get_by_id_time,
+        )
+        get_all_time = (
+            customers_table_results.get_all_time,
+            events_table_results.get_all_time,
+            orders_table_results.get_all_time,
+        )
+
+        ind = np.arange(bar_number)
+        width = 0.25
+
+        plt.bar(ind, insert_time, width, label=f'Insert time ({self.operations_number} records)')
+        plt.bar(ind + width, get_by_id_time, width, label=f'Get by ID time ({self.operations_number} records)')
+        plt.bar(ind + (2 * width), get_all_time, width, label=f'Select all time ({self.operations_number} records)')
+
+        plt.title(f'Database Comparator \n Test results for database {database_name}')
+        plt.ylabel('Operation Time')
+        plt.xticks(ind + width / 3, ('Customers Table', 'Events Table', 'Orders Table'))
+        plt.legend(loc='best')
+
+        plt.show()
+
     @abc.abstractmethod
-    def present_results(self) -> None:
+    def present_results(self, draw_chart: bool) -> None:
         pass
