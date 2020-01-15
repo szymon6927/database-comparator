@@ -14,6 +14,10 @@ class CustomerRepository(abc.ABC):
     def add(self, customer):
         pass
 
+    @abc.abstractmethod
+    def delete_all(self):
+        pass
+
 
 class EventRepository(abc.ABC):
     @abc.abstractmethod
@@ -28,6 +32,10 @@ class EventRepository(abc.ABC):
     def add(self, event):
         pass
 
+    @abc.abstractmethod
+    def delete_all(self):
+        pass
+
 
 class OrderRepository(abc.ABC):
     @abc.abstractmethod
@@ -40,4 +48,8 @@ class OrderRepository(abc.ABC):
 
     @abc.abstractmethod
     def add(self, order):
+        pass
+
+    @abc.abstractmethod
+    def delete_all(self):
         pass

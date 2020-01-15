@@ -4,13 +4,23 @@ import pytest
 
 from src.core.entities.event_entity import Event
 from src.core.entities.order_entitiy import Order
+from src.core.enums import DBEnum
 from src.core.exceptions import NotExists
+from src.core.factory import MultipleDatabaseTypeFactory
 from src.drivers.postgres.impls.postgres_repositories import CustomerPostgresRepository
 from src.drivers.postgres.impls.postgres_repositories import EventPostgresRepository
 from src.drivers.postgres.impls.postgres_repositories import OrderPostgresRepository
 from src.tests.integration.utils import _create_customer_entity
 from src.tests.integration.utils import _create_event_entity
 from src.tests.integration.utils import _create_order_entity
+
+
+@pytest.fixture(scope='module', autouse=True)
+def remove_postgresql_dummy_data():
+    yield
+    database_test_factory = MultipleDatabaseTypeFactory()
+    database_test = database_test_factory.create_database_test(DBEnum.POSTGRESQL.value, 0)
+    database_test.clear_tables()
 
 
 @patch('src.drivers.postgres.impls.postgres_repositories.create_customer')

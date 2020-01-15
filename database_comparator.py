@@ -29,6 +29,8 @@ def main(database, operations_number, draw):
     database_test = database_test_factory.create_database_test(database, operations_number)
     database_test.present_results(draw)
 
+    database_test.clear_tables()
+
 
 if __name__ == '__main__':
     main()

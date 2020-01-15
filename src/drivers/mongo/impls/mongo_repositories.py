@@ -8,6 +8,9 @@ from src.core.repositories import OrderRepository
 from src.drivers.mongo.impls.cqrs.commands import create_customer
 from src.drivers.mongo.impls.cqrs.commands import create_event
 from src.drivers.mongo.impls.cqrs.commands import create_order
+from src.drivers.mongo.impls.cqrs.commands import delete_customers_collection_data
+from src.drivers.mongo.impls.cqrs.commands import delete_events_collection_data
+from src.drivers.mongo.impls.cqrs.commands import delete_orders_collection_data
 from src.drivers.mongo.impls.cqrs.queries import get_all_customers
 from src.drivers.mongo.impls.cqrs.queries import get_all_events
 from src.drivers.mongo.impls.cqrs.queries import get_all_orders
@@ -35,6 +38,9 @@ class CustomerMongoRepository(CustomerRepository):
     def add(self, customer: Customer):
         create_customer(customer)
 
+    def delete_all(self):
+        delete_customers_collection_data()
+
 
 class EventMongoRepository(EventRepository):
     def get_all(self):
@@ -55,6 +61,9 @@ class EventMongoRepository(EventRepository):
     def add(self, event: Event):
         create_event(event)
 
+    def delete_all(self):
+        delete_events_collection_data()
+
 
 class OrderMongoRepository(OrderRepository):
     def get_all(self):
@@ -74,3 +83,6 @@ class OrderMongoRepository(OrderRepository):
 
     def add(self, order: Order):
         create_order(order)
+
+    def delete_all(self):
+        delete_orders_collection_data()

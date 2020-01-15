@@ -1,11 +1,17 @@
 import pytest
+from _pytest.monkeypatch import MonkeyPatch
 
 
-@pytest.fixture(autouse=True)
-def env_setup(monkeypatch):
-    monkeypatch.setenv('MYSQL_PORT', '5306')
-    monkeypatch.setenv('POSTGRES_PORT', '6432')
-    monkeypatch.setenv('MONGO_PORT', '8017')
+@pytest.fixture(autouse=True, scope='session')
+def env_setup():
+    m_patch = MonkeyPatch()
+    m_patch.setenv('MYSQL_PORT', '5306')
+    m_patch.setenv('POSTGRES_PORT', '6432')
+    m_patch.setenv('MONGO_PORT', '8017')
+
+    yield m_patch
+
+    m_patch.undo()
 
 
 @pytest.fixture

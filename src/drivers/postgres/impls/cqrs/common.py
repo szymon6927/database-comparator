@@ -22,7 +22,7 @@ def execute_sql(sql: str, params: tuple = None, many=True):
         print(f'Failed to get record from PostgreSQL table - {e}')
 
 
-def execute_insert_sql(sql: str, params: tuple):
+def execute_insert_or_delete_sql(sql: str, params: tuple):
     db_session = get_connection()
 
     try:

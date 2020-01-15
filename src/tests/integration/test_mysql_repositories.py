@@ -4,13 +4,23 @@ import pytest
 
 from src.core.entities.event_entity import Event
 from src.core.entities.order_entitiy import Order
+from src.core.enums import DBEnum
 from src.core.exceptions import NotExists
+from src.core.factory import MultipleDatabaseTypeFactory
 from src.drivers.mysql.impls.mysql_repositories import CustomerMySQLRepository
 from src.drivers.mysql.impls.mysql_repositories import EventMySQLRepository
 from src.drivers.mysql.impls.mysql_repositories import OrderMySQLRepository
 from src.tests.integration.utils import _create_customer_entity
 from src.tests.integration.utils import _create_event_entity
 from src.tests.integration.utils import _create_order_entity
+
+
+@pytest.fixture(scope='module', autouse=True)
+def remove_mysql_dummy_data():
+    yield
+    database_test_factory = MultipleDatabaseTypeFactory()
+    database_test = database_test_factory.create_database_test(DBEnum.MYSQL.value, 0)
+    database_test.clear_tables()
 
 
 @patch('src.drivers.mysql.impls.mysql_repositories.create_customer')
@@ -45,6 +55,7 @@ def test_mysql_customer_repository_get_all():
     customer_repo = CustomerMySQLRepository()
 
     all_customers = customer_repo.get_all()
+    print("all_customers: ", all_customers)
 
     assert isinstance(all_customers, list)
     assert all_customers[0].company_name == 'test'

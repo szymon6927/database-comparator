@@ -32,3 +32,13 @@ def execute_insert_mongo(collection_name: str, params: dict):
         collection.insert_one(params)
     except PyMongoError as e:
         print(f'Failed to insert record into table - {e}')
+
+
+def execute_delete_mongo(collection_name: str, params: dict):
+    db_session = get_connection()
+    collection = db_session[collection_name]
+
+    try:
+        collection.remove(params)
+    except PyMongoError as e:
+        print(f'Failed to delete - {e}')

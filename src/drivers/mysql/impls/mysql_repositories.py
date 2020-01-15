@@ -8,6 +8,9 @@ from src.core.repositories import OrderRepository
 from src.drivers.mysql.impls.cqrs.commands import create_customer
 from src.drivers.mysql.impls.cqrs.commands import create_event
 from src.drivers.mysql.impls.cqrs.commands import create_order
+from src.drivers.mysql.impls.cqrs.commands import delete_customers_table_data
+from src.drivers.mysql.impls.cqrs.commands import delete_events_table_data
+from src.drivers.mysql.impls.cqrs.commands import delete_orders_table_data
 from src.drivers.mysql.impls.cqrs.queries import get_all_customers
 from src.drivers.mysql.impls.cqrs.queries import get_all_events
 from src.drivers.mysql.impls.cqrs.queries import get_all_orders
@@ -35,6 +38,9 @@ class CustomerMySQLRepository(CustomerRepository):
     def add(self, customer: Customer):
         create_customer(customer.id, customer.name, customer.age, customer.company_name, customer.created_at)
 
+    def delete_all(self):
+        delete_customers_table_data()
+
 
 class EventMySQLRepository(EventRepository):
     def get_all(self):
@@ -55,6 +61,9 @@ class EventMySQLRepository(EventRepository):
     def add(self, event: Event):
         create_event(event.id, event.name, event.city, event.date)
 
+    def delete_all(self):
+        delete_events_table_data()
+
 
 class OrderMySQLRepository(OrderRepository):
     def get_all(self):
@@ -74,3 +83,6 @@ class OrderMySQLRepository(OrderRepository):
 
     def add(self, order: Order):
         create_order(order.id, order.amount)
+
+    def delete_all(self):
+        delete_orders_table_data()
