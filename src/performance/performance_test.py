@@ -142,6 +142,11 @@ class BasePerformanceTest(abc.ABC):
 
         return round(end - start, 3)
 
+    def clear_tables(self):
+        self.customer_repository.delete_all()
+        self.event_repository.delete_all()
+        self.order_repository.delete_all()
+
     def test_customers_table(self) -> TablePerformance:
         return TablePerformance(
             table_name='customers',
