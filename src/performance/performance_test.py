@@ -206,5 +206,5 @@ class BasePerformanceTest(abc.ABC):
         plt.show()
 
     @abc.abstractmethod
-    def present_results(self) -> None:
+    def present_results(self, draw_chart: bool) -> None:
         pass
