@@ -8,7 +8,7 @@ from src.core.factory import MultipleDatabaseTypeFactory
 
 
 @click.command()
-@click.option('--database', '-db', help='database type which you want to test')
+@click.option('--database', '-db', help=f'database type which you want to test, supported args: {DBEnum.list()}')
 @click.option('--operations-number', '-opn', default=10, help='number of operations performed on the database')
 @click.option('--draw', help='use this flag if you want to draw a chart with the results', is_flag=True)
 def main(database, operations_number, draw):
@@ -16,8 +16,8 @@ def main(database, operations_number, draw):
     Database Comparator - Netguru RnD project
     The goal of the project is to make a database comparison.
     In order to be able to make this maintainable we use pure CQRS pattern.
-    Supported databases:
-    - MySQL
+
+    Supported databases: MySQL, PostgreSQL, MongoDB
     """
 
     print('Welcome in Database Comparator (Netguru RnD project) ✨')
